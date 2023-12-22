@@ -1,6 +1,4 @@
-#include <iostream>
-#include <algorithm>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
 typedef long long ll;
@@ -16,20 +14,44 @@ signed main() {
         int n; cin >> n;
         vector<int> a(n);
         
-        int maxn = 0, maxi;
+        int maxn = 0, maxi1, maxi2;
         for (int i = 0; i < n; i++) {
             cin >> a[i];
             if (maxn < a[i]) {
                 maxn = a[i];
-                maxi = i;
+                maxi1 = i;
             }
         }
         
-        int i = maxi + 1;
+        int i = maxi1+1;
+        while (i != maxi1) {
+            if (i == n) {
+                i = 0;
+            }
+            if (a[i] != maxn) break;
+            i++;
+        }
+        if (i == 0) i = n-1;
+        maxi2 = i;
+        
+        i = maxi1-1;
+        while (i != maxi1) {
+            if (i == 0) {
+                i = n-1;
+            }
+            if (a[i] != maxn) break;
+            i--;
+        }
+        if (i == n) i = 0;
+        maxi1 = i;
+        
+        
+        
+        i = maxi2 + 1;
         int prev = maxn;
         int order = 0;
         bool ordered = true;
-        while (i != maxi) {
+        while (i != maxi1) {
             if (i == n) {
                 i = 0;
             }
@@ -48,8 +70,9 @@ signed main() {
         
         int ans = -1;
         if (ordered) {
-            if (order == -1) ans += 2;
-            ans += n - (maxi + 1);
+            ans = 0;
+            if (order == -1) ans += (n - maxi1 + 1) + 2;
+            else ans += n - (maxi2 + 1);
         }
         cout << ans << endl;
     }
