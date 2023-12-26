@@ -2,78 +2,63 @@
 using namespace std;
 
 typedef long long ll;
+
 #define f first
 #define s second
 
 signed main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    
     int t; cin >> t;
     while (t--) {
         int n; cin >> n;
-        vector<int> a(n);
+        vector<int> a(n); 
+        for (int i = 0; i < n; i++) cin >> a[i];
         
-        int maxn = 0, maxi1, maxi2;
-        for (int i = 0; i < n; i++) {
-            cin >> a[i];
-            if (maxn < a[i]) {
-                maxn = a[i];
-                maxi1 = i;
-            }
+        int inc = 0, dec = 0;
+        for (int i = 1; i < n; i++) {
+            if (a[i] > a[i-1]) inc++;
+            if (a[i] < a[i-1]) dec++;
         }
+        if (a[0] > a[n-1]) inc++;
+        else if (a[0] < a[n-1]) dec++;
         
-        int i = maxi1+1;
-        while (i != maxi1) {
-            if (i == n) {
-                i = 0;
+        int minn = a[0], mini1 = 0, mini2 = 0;
+        bool streak = true;
+        bool lock = false;
+        for (int i = 1; i < n; i++) {
+            int cur = a[i];
+            if (cur < minn) {
+                minn = cur;
+                mini1 = i;
+                lock = false;
+                mini2 = i;
+                streak = true;
             }
-            if (a[i] != maxn) break;
-            i++;
-        }
-        if (i == 0) i = n-1;
-        maxi2 = i;
-        
-        i = maxi1-1;
-        while (i != maxi1) {
-            if (i == 0) {
-                i = n-1;
+            else if (cur == minn) {
+                if (!streak) mini1 = i;
+                if (!lock) mini2 = i;
+                streak = true;
             }
-            if (a[i] != maxn) break;
-            i--;
-        }
-        if (i == n) i = 0;
-        maxi1 = i;
-        
-        
-        
-        i = maxi2 + 1;
-        int prev = maxn;
-        int order = 0;
-        bool ordered = true;
-        while (i != maxi1) {
-            if (i == n) {
-                i = 0;
-            }
-            
-            if (a[i] < prev && order <= 0) order = -1;
-            else if (a[i] > prev && order >= 0) order = 1;
-            else if (a[i] == prev) order = order;
             else {
-                ordered = false;
-                break;
+                if (streak = true) lock = true;
+                streak = false;
             }
-            prev = a[i];
-            i++;
         }
         
-        
-        int ans = -1;
-        if (ordered) {
-            ans = 0;
-            if (order == -1) ans += (n - maxi1 + 1) + 2;
-            else ans += n - (maxi2 + 1);
+        // cout << "inc: " << inc << " dec: " << dec << endl;
+        if (inc == 0 && dec == 0) cout << 0 << endl;
+        else if (inc != 1 && dec != 1) cout << -1 << endl;
+        else if (dec == inc) {
+            //cout << "mini2: " << mini2 << endl;
+            if (mini1 == 0) cout << 0 << endl;
+            else cout << min(min(mini1+2, n-mini1), min(n-mini2, mini2+2)) << endl;
         }
-        cout << ans << endl;
+        else if (dec == 1) {
+            // cout << mini1 << endl;
+            if (mini1 == 0) cout << 0 << endl;
+            else cout << min(mini1+2, n-mini1) << endl;
+        }
+        else if (inc == 1) {
+            cout << min(n-mini2, mini2+2) << endl;
+        }
     }
 }
