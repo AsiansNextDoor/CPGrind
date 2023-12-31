@@ -81,4 +81,4 @@ signed main() {
 
         cout << tot - 2*min(min(min(sa, sb), sc) ,min(mb + mc, min(mb + ma, ma + mc))) << endl;
     }
-}
+} 
