@@ -1,2 +1,2 @@
 # CPGrind
-Grinding for CP
+Grinding CP
