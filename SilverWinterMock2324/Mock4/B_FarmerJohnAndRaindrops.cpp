@@ -8,6 +8,8 @@ typedef long long ll;
 #define f first
 #define s second
 
+const ll maxn = 1e5+3;
+
 signed main() {
     IOS;
 
@@ -24,8 +26,8 @@ signed main() {
         vector<ll> shake(m);
         for (ll i = 0; i < m; i++) cin >> shake[i];
 
-        set<ll> leaves;
-        map<ll,ll> dist;
+        ll leaves = 0;
+        vector<ll> dist(maxn, 0);
         queue<vector<ll>> bfs;
         bfs.push({1, 0, 0});
         while (!bfs.empty()) {
@@ -41,11 +43,20 @@ signed main() {
             }
 
             if (leaf) {
-                leaves.insert(d);
+                leaves++;
                 dist[d]++;
             }
         }
 
+        for (ll i = 1; i < maxn; i++) {
+            dist[i] += dist[i-1];
+        }
+
+        vector<ll> dp(maxn, 0);
+
+        for (ll i = 1; i < maxn; i++) {
+            dp[i] = dp[i-1] + dist[i];
+        }
         ll ans = 0;
 
         ll prev = 1;
@@ -54,12 +65,8 @@ signed main() {
             ll time = shake[i] - prev;
             prev = shake[i]+1;
 
-            auto it = leaves.begin();
-            while (it != leaves.end() && *it <= time) {
-                ans += dist[*it] * (time - *it + 1);
-                //cout << ans << endl;
-                it++;
-            }
+            if (time >= maxn) ans += dp[maxn-1] + (time - (maxn-1)) * leaves;
+            else ans += dp[time];
         }
 
         cout << ans << endl;
