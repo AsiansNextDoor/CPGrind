@@ -1,15 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <set>
-#include <queue>
-#include <map>
-#include <array>
-#include <algorithm>
-#include <climits>
-#include <cmath>
-#include <cstring>
-#include <numeric>
-
 using namespace std;
 
 typedef long long ll;
@@ -21,4 +11,13 @@ typedef long long ll;
 
 signed main() {
     IOS;
+
+    ll n; cin >> n;
+    ll ans = 1;
+    while (n % 57 == 0) {
+        n /= 57;
+        ans++;
+    }
+
+    cout << ans << endl;
 }
