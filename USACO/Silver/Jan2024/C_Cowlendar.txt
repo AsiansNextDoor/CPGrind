@@ -1,0 +1,12 @@
+Editorial for C. Cowlendar
+
+In this problem, it is crucial to recognize that for a valid L, there are only
+3 distinct remainders possible when dividing ai by L. For values that result
+in the same remainder when divided by L, the difference between the two values 
+must be divisible by L(for example, 3 and 5 both give a remainder of 1 when 
+divided by 2, and therefore 5 - 3 is divisible by 2). This means that within a
+set of 4 distinct values of array a, any possible L must divide the difference
+of a pair of values in the set. Since there are only 6 distinct pairs in the
+set and the maximum number we have to check as a divisor is sqrt(4*1e9), we
+can find all possible values of L through this set. Checking the potential L's
+in the list and adding them will yield the answer.
