@@ -23,14 +23,23 @@
         },
         {
             "type": "cppbuild",
+<<<<<<< Updated upstream
             "label": "C/C++: g++.exe build active file",
             "command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
+=======
+            "label": "C/C++: g++ build active file",
+            "command": "/usr/bin/g++",
+>>>>>>> Stashed changes
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
                 "-o",
+<<<<<<< Updated upstream
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
+=======
+                "${fileDirname}/${fileBasenameNoExtension}"
+>>>>>>> Stashed changes
             ],
             "options": {
                 "cwd": "${fileDirname}"
