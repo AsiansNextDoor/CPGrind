@@ -2,6 +2,8 @@
 #include <vector>
 #include <set>
 #include <queue>
+#include <deque>
+#include <stack>
 #include <map>
 #include <array>
 #include <algorithm>
