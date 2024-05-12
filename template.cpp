@@ -1,8 +1,4 @@
 #include <bits/stdc++.h>
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 using namespace std;
 
 typedef long long ll;
