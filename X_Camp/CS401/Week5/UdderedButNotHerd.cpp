@@ -8,57 +8,41 @@ typedef long long ll;
 #define f first
 #define s second
 
-vector<vector<int>> dpstep(21, vector<int>((1 << 21), 0));
-vector<int> dp((1 << 21), 1e5);
+vector<int> dp((1 << 20), 1e5);
+vector<vector<int>> adj(21, vector<int>(21, 0));
 
 signed main() {
     IOS;
     string s; cin >> s;
-    vector<string> a = {"deilmr", "abcfghjknopqstuvwxyz"};
-    int t = 0;
+    vector<string> a = {"bdeilmrs", "abcfghjknopqstuvwxyz"};
+    int t = 1;
 
     int n = s.length();
-    if (a[0].find(s[0]) == string::npos) {
-        t = 1;
-    }
-
-
-
-    for (int mask = 0; mask < (1 << (a[t].length())) - 1; mask++) {
-        for (int i = 0; i < a[t].length(); i++) {
-            int next = (1 << i);
-            if (next & mask) {
-                continue;
-            }
-
-            int cnt = 0;
-            string small;
-            for (int j = 0; j < a[t].length(); j++) {
-                if ((1 << j) & mask) {
-                    small += a[t][j];
-                }
-            }
-            for (int j = 0; j < n; j++) {
-                if (s[j] != a[t][i]) {
-                    continue;
-                }
-                if (j != n-1 && (small.find(s[j+1]) != string::npos || s[j+1] == s[j])) { //smaller
-                    cnt++;
-                }
-            }
-
-            dpstep[i][mask] = cnt;
+    for (int i = 0; i < n; i++) {
+        if (a[1].find(s[i]) == string::npos) {
+            t = 0;
+            break;
         }
     }
 
+
+    for (int i = 0; i < n-1; i++) {
+        int x = a[t].find(s[i]), y = a[t].find(s[i+1]);
+        adj[x][y]++;
+    }
     dp[0] = 0;
-    for (int mask = 0; mask < (1 << (a[t].length())) - 1; mask++) {
+    for (int mask = 0; mask < (1 << a[t].length()); mask++) {
         for (int i = 0; i < a[t].length(); i++) {
             int next = (1 << i);
             if (next & mask) {
                 continue;
             }
-            dp[mask^next] = min(dp[mask] + dpstep[i][mask], dp[mask^next]);
+            int cnt = adj[i][i];
+            for (int j = 0; j < a[t].length(); j++) {
+                int check = (1 << j);
+                if (mask & check) cnt += adj[i][j];
+            } 
+            dp[mask^next] = min(dp[mask] + cnt, dp[mask^next]);
         }
     }
 
