@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t, n, m, p, ans, mn;
+    char str[401][401];
+    int psums[401][401];
+    int now[401];
+
+    cin >> t;
+    while(t--) {
+        cin >> n >> m;
+        ans = 16;
+
+        for(int i = 1; i <= n; i++) {
+            cin >> (str[i] + 1);
+            for(int j = 1; j <= m; j++) {
+                psums[i][j] = psums[i][j - 1] + (str[i][j] == '1');
+            }
+        }
+
+        for(int i = 1; i <= m - 3; i++) {
+            for(int j = i + 3; j <= m; j++) {
+                for(int k = 1; k <= 4; k++) {
+                    now[k] = now[k - 1] + (str[k][i] == '0') + (str[k][j] == '0') + psums[k][j - 1] - psums[k][i];
+                }
+
+                mn = now[4] - now[1] + (j - 1 - i) - (psums[1][j - 1] - psums[1][i]);
+
+                for(int k = 5; k <= n; k++) {
+                    ans = min(ans, mn + (j - 1 - i) - (psums[k][j - 1] - psums[k][i]));
+                    p = (str[k][i] == '0') + (str[k][j] == '0') + psums[k][j - 1] - psums[k][i];
+                    now[k] = now[k - 1] + p;
+                    mn = min(mn + p, now[k] - now[k - 3] + (j - 1 - i) - (psums[k - 3][j - 1] - psums[k - 3][i]));
+                }
+            }
+        }
+
+        cout << ans << endl;
+    }
+    return 0;
+}
