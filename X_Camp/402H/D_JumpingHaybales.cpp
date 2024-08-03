@@ -34,7 +34,7 @@ signed main() {
             else if (i == n-1 && j == n-1) {
                 if (!horiz[i].empty() && horiz[i].back()[1] + k < j) horiz[i].pop_back();
                 if (!vert[j].empty() && vert[j].back()[1] + k < i) vert[j].pop_back();
-                int val = 1e4;
+                int val = 1e9;
                 if (!horiz[i].empty()) {
                     val = min(horiz[i].back()[0] + 1, val);
                 }
@@ -43,14 +43,14 @@ signed main() {
                     val = min(vert[j].back()[0] + 1, val);
                 }
 
-                if (val == 1e4) cout << -1 << endl;
+                if (val == 1e9) cout << -1 << endl;
                 else cout << val << endl;
             }
             else {
                 if (!horiz[i].empty() && horiz[i].back()[1] + k < j) horiz[i].pop_back();
                 if (!vert[j].empty() && vert[j].back()[1] + k < i) vert[j].pop_back();
                 if (grid[i][j] == 1) continue; 
-                int val = 1e4;
+                int val = 1e9;
                 if (!horiz[i].empty()) {
                     val = min(horiz[i].back()[0] + 1, val);
                 }
@@ -59,7 +59,7 @@ signed main() {
                     val = min(vert[j].back()[0] + 1, val);
                 }
                     
-                if (val == 1e4) continue;
+                if (val == 1e9) continue;
                 while (!horiz[i].empty()) {
                     if (horiz[i].front()[0] >= val) horiz[i].pop_front();
                     else break;
@@ -74,4 +74,5 @@ signed main() {
             }
         }
     }
+    if (n == 1) cout << 0 << endl;
 }
