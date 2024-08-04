@@ -11,8 +11,8 @@ signed main() {
     int ans = 1e9;
     while (l <= r)
     {
-        mid = (l + r)/2;
-        if(check(mid))
+        mid = (l + r) / 2;
+        if (check(mid))
         {
             ans = min(ans, mid);
             r = mid - 1;
