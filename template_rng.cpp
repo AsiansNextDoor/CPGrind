@@ -15,4 +15,6 @@ signed main() {
 
     mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
     unsigned long long x = rng();
+
+    cout << x << endl;
 }
