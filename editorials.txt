@@ -1,0 +1,4 @@
+## 100 Problems Silver ##
+Dance Mooves
+Right initial idea, DSU implementation catch: parents do not update for children of unified parents; 
+this means that we need to perform "find_set" for all nodes to update the parents of each one
