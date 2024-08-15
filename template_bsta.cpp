@@ -9,16 +9,13 @@ signed main() {
     int l = 0;
     int r = 1e9, mid;
     int ans = 1e9;
-    while (l <= r)
-    {
+    while (l <= r) {
         mid = (l + r) / 2;
-        if (check(mid))
-        {
+        if (check(mid)) {
             ans = min(ans, mid);
             r = mid - 1;
         }
-        else
-        {
+        else {
             l = mid + 1;
         }
     }
