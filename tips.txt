@@ -1,4 +1,13 @@
-YOU CAN DO IT!!!
+Problem types:
+
+Graph
+- States
+
+Array
+- States
+- Prefix or Suffix Sum
+
+Tree
 
 Understanding the problem
 - Read the problem 3 TIMES

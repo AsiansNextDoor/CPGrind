@@ -14,6 +14,9 @@ int INF;
 signed main() {
     IOS;
 
+    freopen("swap.in", "r", stdin);
+    freopen("swap.out", "w", stdout);
+
     int n, m, k; cin >> n >> m >> k;
     
     vector<int> swaps(n);
