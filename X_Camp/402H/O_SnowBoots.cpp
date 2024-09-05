@@ -45,5 +45,9 @@ signed main() {
 
     node *snode = new node(snode);
     node *enode = new node(snode);
-    for (int i = 0; i < n; i++)
+
+    vector<node> nodes(n);
+    for (int i = 0; i < n; i++) {
+        m 
+    }
 }
