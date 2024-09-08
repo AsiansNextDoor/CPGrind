@@ -10,42 +10,32 @@ typedef unsigned long long ull;
 
 int INF, MOD;
 
-struct node {
-    node *start, *end; // start and end of basket
-    node() : start(nullptr), end(nullptr) {}
-};
-
 int blobs = 0;
-map<int, int> exist;
-map<int, node*> nodes;
-map<node*, int> indexes;
+vector<int> p;
+vector<int> s;
 
-void merge(int i) {
-    node* n1 = new node();
-    n1->start = n1;
-    n1->end = n1;
+void make_set(int v) {
+    p[v] = v;
+    s[v] = 1;
+    blobs = max(blobs, 1);
+}
 
-    exist[i]++;
-    nodes[i] = n1;
-    indexes[n1] = i;
-    int starti, endi;
-    if (exist[i - 1] && exist[i + 1]) {
-        nodes[i - 1]->start->end = nodes[i + 1]->end;
-        nodes[i + 1]->end->start = nodes[i - 1]->start;
-        nodes[i]->start = nodes[i - 1]->start;
-        nodes[i]->end = nodes[i + 1]->end;
+int find_set(int v) {
+    if (v == p[v])
+        return v;
+    return p[v] = find_set(p[v]);
+}
+
+void union_sets(int a, int b) {
+    a = find_set(a);
+    b = find_set(b);
+    if (a != b) {
+        if (s[a] < s[b])
+            swap(a, b);
+        p[b] = a;
+        s[a] += s[b];
+        blobs = max(s[a], blobs);
     }
-    else if (exist[i - 1]) {
-        nodes[i - 1]->start->end = nodes[i];
-        nodes[i]->start = nodes[i - 1]->start;
-    }
-    else if (exist[i + 1]) {
-        nodes[i + 1]->end->start = nodes[i];
-        nodes[i]->end = nodes[i + 1]->end;
-    }
-    starti = indexes[nodes[i]->start];
-    endi = indexes[nodes[i]->end];
-    blobs = max(endi - starti + 1, blobs);
 }
 
 
@@ -56,6 +46,9 @@ signed main() {
     freopen("snowboots.out", "w", stdout);
 
     int n, b; cin >> n >> b;
+
+    p.resize(n, -1);
+    s.resize(n, -1);
 
     vector<int> snow(n);
     for (int i = 0; i < n; i++) cin >> snow[i];
@@ -78,7 +71,10 @@ signed main() {
     for (int i = 0; i < b; i++) {
         int curd = boots[i][0], curs = boots[i][1], curi = boots[i][2];
         while (j < n && si[j][0] > curd) {
-            merge(si[j][1]);
+            int k = si[j][1];
+            make_set(k);
+            if (k > 0 && p[k - 1] != -1) union_sets(k - 1, k);
+            if (k < n - 1 && p[k + 1] != -1) union_sets(k + 1, k);
             j++;
         }
 
