@@ -9,10 +9,6 @@ typedef unsigned long long ull;
 
 int INF;
 
-int lcd(int a, int b) {
-    if (a == 0)
-}
-
 signed main() {
     IOS;
 
@@ -23,5 +19,15 @@ signed main() {
     vector<int> psum(n, a[0]);
     vector<int> ssum(n, a[n - 1]);
 
-    for (int i = 2; i < n; i++) psum[i] = lcd
+    for (int i = 2; i < n; i++) psum[i] = __gcd(psum[i - 1], a[i - 1]);
+    for (int i = n - 3; i >= 0; i--) ssum[i] = __gcd(ssum[i + 1], a[i + 1]);
+
+    int ans = 0;
+    for (int i = 0; i < n; i++) {
+        if (i == 0) ans = max(ssum[i], ans);
+        else if (i == n - 1) ans = max(psum[i], ans);
+        else ans = max(__gcd(psum[i], ssum[i]), ans);
+    }
+
+    cout << ans << endl;
 }
