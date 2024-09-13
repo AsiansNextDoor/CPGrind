@@ -12,4 +12,10 @@ int INF, MOD;
 
 signed main() {
     IOS;
+
+    int t; cin >> t;
+    while (t--) {
+        int a, b; cin >> a >> b;
+        cout << b - a << endl;
+    }
 }

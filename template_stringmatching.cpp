@@ -12,4 +12,14 @@ int INF, MOD;
 
 signed main() {
     IOS;
+    
+    int n;
+    vector<int> pi(n), s(n);
+    pi[0] = 0;
+    for (int i = 1; i < n; i++) {
+        int j = pi[i - 1];
+        while (j > 0 && s[j] != s[i]) j = pi[j - 1];
+        if (s[i] == s[j]) j++;
+        pi[i] = j;
+    }
 }
