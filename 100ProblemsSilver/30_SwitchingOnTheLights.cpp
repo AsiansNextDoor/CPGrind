@@ -16,6 +16,9 @@ vector<int> y_ = {1, -1, 0, 0};
 signed main() {
     IOS;
 
+    freopen("lightson.in", "r", stdin);
+    freopen("lightson.out", "w", stdout);
+
     int n, m; cin >> n >> m;
     vector<vector<vector<vector<int>>>> switches(n + 1, vector<vector<vector<int>>>(n + 1));
     for (int i = 0; i < m; i++) {
