@@ -23,5 +23,7 @@ signed main() {
     int n; cin >> n;
     vector<int> sum(n);
     vector<int> minpsum(n);
-    for 
+    for (int i = 0; i < n; i++) {
+        
+    }
 }
