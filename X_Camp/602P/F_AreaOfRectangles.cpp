@@ -16,7 +16,7 @@ int lazy[10000000];
 vector<int> query(int p, int l, int r, int ql, int qr) {
     if (qr < l || ql > r) return {0, 0};
     if (ql <= l && r <= qr) 
-        return {!!sum[p] + lazy[p] * (r - l + 1), (r - l + 1)};
+        return {sum[p] + lazy[p] * (r - l + 1), (r - l + 1)};
 
     int m = (l + r) / 2;
     auto q1 = query(2 * p, l, m, ql, qr);
