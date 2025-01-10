@@ -78,7 +78,7 @@ signed main() {
                 for (int j = 0; j < 4; j++) {
                     int x1 = x + x_[j];
                     int y1 = y + y_[j];
-                    if (good[x1][y1]) continue;
+                    if (x1 <= 0 || x1 > n || y1 <= 0 || y1 > n || good[x1][y1]) continue;
                     if (grid[x1][y1] != t_[j] && grid[x1][y1] != '?') continue;
                     good[x1][y1]++;
                     goodcells++;
